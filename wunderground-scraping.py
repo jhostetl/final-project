@@ -337,7 +337,7 @@ def averages_start_scrape(airport_list_number1, airport_list_number2):
 #use this to insert into database from cached data
 
 
-start_insert(38,39, "wunderground_large_cities_all_data")
+#start_insert(38,39, "wunderground_large_cities_all_data")
 
 
 

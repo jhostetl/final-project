@@ -2,6 +2,13 @@ import unittest
 import json
 from bs4 import BeautifulSoup
 
+class DayTemp():
+    def __init__(self, day, low, high):
+        self.day = day
+        self.low = low
+        self.high = high
+    def __str__(self):
+        return 'The high on {} was {} and the low was {}'.format(self.day, int(self.high), int(self.low)) 
 
 CACHE_FNAME = 'scraping_cache_dict.json'
 try:
@@ -20,8 +27,8 @@ class Testing(unittest.TestCase):
         url = "https://www.wunderground.com/history/airport/KARB/2017/1/1/MonthlyCalendar.html"
         monthly_list = CACHE_DICTION[url]
         january_length = len(monthly_list)
-        january_1_low = float(CACHE_DICTION[url][0]["low"])
-        january_1_high = float(CACHE_DICTION[url][0]["high"])
+        january_1 = DayTemp("January 1, 2017", float(CACHE_DICTION[url][0]["low"]), float(CACHE_DICTION[url][0]["high"]))
+
         january_31_low = float(CACHE_DICTION[url][30]["low"])
         january_31_high = float(CACHE_DICTION[url][30]["high"])
  
@@ -32,8 +39,9 @@ class Testing(unittest.TestCase):
             days += len(monthly_list)
 
         self.assertEqual(january_length, 31)
-        self.assertEqual(january_1_low, 16)
-        self.assertEqual(january_1_high, 37)
+        self.assertEqual(january_1.low, 16)
+        self.assertEqual(january_1.high, 37)
+        self.assertEqual(january_1.__str__(), "The high on January 1, 2017 was 37 and the low was 16")       
         self.assertEqual(january_31_low, 24)
         self.assertEqual(january_31_high, 34)
         self.assertEqual(days, 365)
